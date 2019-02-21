@@ -117,7 +117,7 @@ def getStats()
         if(numCoinGames==0)
           puts input[1] + " has no recorded games"
         else
-          aveCoins = numCoins/numCoinGames
+          aveCoins = numCoins.to_f/numCoinGames
           puts "The average number of coins per game for " + input[1] + " is " + aveCoins.to_s
         end
       end
@@ -133,7 +133,7 @@ def getStats()
         if(numCoinGames==0)
           puts input[1] + " has no recorded games"
         else
-          aveCoins = numCoins/numCoinGames
+          aveCoins = numCoins.to_f/numCoinGames
           puts "The average number of coins per game for " + input[1] + " is " + aveCoins.to_s
         end
       end
@@ -153,7 +153,7 @@ def getStats()
         if(numStarGames==0)
           puts input[1] + " has no recorded games"
         else
-          aveStars = numStars/numStarGames
+          aveStars = numStars.to_f/numStarGames
           puts "The average number of stars per game for " + input[1] + " is " + aveStars.to_s
         end
       end
@@ -169,11 +169,53 @@ def getStats()
         if(numStarGames==0)
           puts input[1] + " has no recorded games"
         else
-          aveStars = numStars/numStarGames
+          aveStars = numStars.to_f/numStarGames
           puts "The average number of stars per game for " + input[1] + " is " + aveStars.to_s
         end
       end
-    
+    end
+    if(input[0] == "Winrate")
+      numWins = 0
+      numPlayedGames = 0
+      if(factions.include?(input[1].chr))
+        games.each do |game|
+          first = true
+          game.get_factions.each do |faction|
+            if(faction.get_name == input[1].chr)
+              if(first)
+                numWins+=1
+              end
+              numPlayedGames +=1
+            end
+            first = false
+          end
+        end
+        if(numPlayedGames==0)
+          puts input[1] + " has no recorded games"
+        else
+          winrate = numWins.to_f/numPlayedGames
+          puts "The winrate for " + input[1] + " is " + winrate.to_s
+        end
+      end
+      if(mats.include?(input[1]))
+        games.each do |game|
+          first = true
+          game.get_factions.each do |faction|
+            if(faction.get_mat == input[1])
+              if(first)
+                numWins+=1
+              end
+              numPlayedGames +=1
+            end
+          end
+        end
+        if(numPlayedGames==0)
+          puts input[1] + " has no recorded games"
+        else
+          winrate = numWins.to_f/numPlayedGames
+          puts "The winrate for " + input[1] + " is " + winrate.to_s
+        end
+      end    
     end
   end
 end
